@@ -7,7 +7,28 @@
     owner: "{{ mongodb_user }}"
     group: "root"
     mode: 0600
-  when: mongodb_replication_replset and  mongodb_replication_replset != ''
+  register: keyfile_result
+  when: mongodb_replication_replset and mongodb_replication_replset != '' and not mongodb_ssl_enable
+
+- name: Create PEMKeyFile
+  copy:
+    dest: "{{ mongodb_ssl_pemkeyfile }}"
+    content: "{{ mongodb_ssl_pemkeyfile_content }}"
+    owner: "{{ mongodb_user }}"
+    group: "root"
+    mode: 0600
+  register: pemkeyfile_result
+  when: mongodb_ssl_enable
+
+- name: Create CAFile
+  copy:
+    dest: "{{ mongodb_ssl_cafile }}"
+    content: "{{ mongodb_ssl_cafile_content }}"
+    owner: "{{ mongodb_user }}"
+    group: "root"
+    mode: 0600
+  register: cafile_result
+  when: mongodb_ssl_enable and mongodb_ssl_cafile_content is defined and mongodb_ssl_cafile_content != ''
 
 - name: set mongodb gid
   group: name=mongodb gid={{ mongodb_gid }} state=present
@@ -49,7 +70,7 @@
 
 - name: mongodb restart
   service: name={{ mongodb_daemon_name }} state=restarted
-  when: config_result|changed and mongodb_manage_service
+  when: (config_result|changed or keyfile_result|changed or pemkeyfile_result|changed or cafile_result|changed) and mongodb_manage_service
 
 - name: Ensure service is started
   service: name={{ mongodb_daemon_name }} state=started

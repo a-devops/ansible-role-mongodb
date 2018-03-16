@@ -9,6 +9,12 @@ net:
   ipv6: {{ mongodb_net_ipv6 | to_nice_json }}
   maxIncomingConnections: {{ mongodb_net_maxconns }}
   port: {{ mongodb_net_port }}
+  {% if mongodb_ssl_enable -%}
+  ssl:
+    mode: {{ mongodb_ssl_mode }}
+    PEMKeyFile: {{ mongodb_ssl_pemkeyfile }}
+    CAFile: {{ mongodb_ssl_cafile }}
+  {% endif %}
 
 processManagement:
   fork: {{ mongodb_processmanagement_fork | to_nice_json}}

@@ -35,6 +35,14 @@ mongodb_processmanagement_fork: "{{ 'RedHat' == ansible_os_family }}"
 mongodb_security_authorization: "disabled"
 mongodb_security_keyfile: /etc/mongodb-keyfile   # Specify path to keyfile with password for inter-process authentication
 
+# Enable ssl. Required unique mongodb_ssl_pemkeyfile_content for every host.
+mongodb_ssl_enable: false
+mongodb_ssl_mode: preferSSL
+mongodb_ssl_pemkeyfile: /etc/mongodb/pemkeyfile.pem # Specify path to pemkeyfile with key+pem for ssl.
+mongodb_ssl_pemkeyfile_content:
+mongodb_ssl_cafile: /etc/mongodb/cafile.pem # Specify path to cafile with ca pem for ssl.
+mongodb_ssl_cafile_content:
+
 ## storage Options
 mongodb_storage_dbpath: /data/db                 # Directory for datafiles
 # The storage engine for the mongod database. Available values:
