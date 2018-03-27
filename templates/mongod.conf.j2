@@ -33,7 +33,7 @@ replication:
 
 security:
   authorization: {{ mongodb_security_authorization }}
-  {% if mongodb_replication_replset and mongodb_security_authorization == 'enabled' and not mongodb_ssl_enable -%}
+  {% if mongodb_replication_replset and mongodb_security_authorization == 'enabled' -%}
   keyFile: {{ mongodb_security_keyfile }}
   {% endif %}
 
