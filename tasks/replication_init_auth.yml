@@ -11,7 +11,7 @@
     host_type: "{{ item.host_type|default('replica') }}"
     hidden: "{{ item.hidden|default(false) }}"
     priority: "{{ item.priority|default(1.0) }}"
-    votes: "{{ item.votes|default(1.0) }}"
+    votes: "{{ item.votes|default(1) }}"
   with_items:
     - "{{ mongodb_replication_params|default([]) }}"
   register: mongodb_replica_init
@@ -32,7 +32,7 @@
     host_type: "{{ item.host_type|default('replica') }}"
     hidden: "{{ item.hidden|default(false) }}"
     priority: "{{ item.priority|default(1.0) }}"
-    votes: "{{ item.votes|default(1.0) }}"
+    votes: "{{ item.votes|default(1) }}"
   when: mongodb_replica_init|failed
   with_items:
     - "{{ mongodb_replication_params|default([]) }}"
