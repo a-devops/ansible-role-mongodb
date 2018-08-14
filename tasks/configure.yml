@@ -1,5 +1,24 @@
 ---
 
+- name: Create transparent hugepages init script
+  template:
+    src: "disable-transparent-hugepages.j2"
+    dest: "/etc/init.d/disable-transparent-hugepages"
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  register: mongodb_create_init_hugepages
+  when: mongodb_disable_transparent_hugepages
+
+- name: Start transparent hugepages init script
+  service:
+    name: 'disable-transparent-hugepages'
+    state: 'restarted'
+    enabled: True
+  when:
+    - mongodb_disable_transparent_hugepages
+    - mongodb_create_init_hugepages.changed
+
 - name: Create keyFile
   copy:
     dest: "{{ mongodb_security_keyfile }}"
@@ -70,7 +89,12 @@
 
 - name: mongodb restart
   service: name={{ mongodb_daemon_name }} state=restarted
-  when: (config_result|changed or keyfile_result|changed or pemkeyfile_result|changed or cafile_result|changed) and mongodb_manage_service
+  when: "(config_result|changed
+          or keyfile_result|changed
+          or pemkeyfile_result|changed
+          or cafile_result|changed
+          or mongodb_create_init_hugepages|changed
+          ) and mongodb_manage_service
 
 - name: Ensure service is started
   service: name={{ mongodb_daemon_name }} state=started
