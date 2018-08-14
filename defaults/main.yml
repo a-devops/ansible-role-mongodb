@@ -108,3 +108,7 @@ mongodb_root_backup_password: passw0rd
 
 # setParameter config
 mongodb_set_parameters:
+
+# Disable transparent hugepages
+# https://docs.mongodb.com/manual/tutorial/transparent-huge-pages/#init-script
+mongodb_disable_transparent_hugepages: false
