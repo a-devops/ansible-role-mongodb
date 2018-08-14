@@ -94,7 +94,7 @@
           or pemkeyfile_result|changed
           or cafile_result|changed
           or mongodb_create_init_hugepages|changed
-          ) and mongodb_manage_service
+          ) and mongodb_manage_service"
 
 - name: Ensure service is started
   service: name={{ mongodb_daemon_name }} state=started
