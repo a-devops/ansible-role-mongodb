@@ -11,7 +11,7 @@
   when: mongodb_disable_transparent_hugepages
 
 - name: Start transparent hugepages init script
-  service:
+  systemd:
     name: 'disable-transparent-hugepages'
     state: 'restarted'
     enabled: True
