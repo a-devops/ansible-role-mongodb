@@ -28,6 +28,9 @@ mongodb_net_port: 27017                          # Specify port number
 mongodb_net_ssl: disabled                        # Enable or disable ssl connections
 mongodb_net_ssl_mode:                            # Set the ssl mode (RequireSSL / PreferSSL / AllowSSL / disabled)
 mongodb_net_ssl_pemfile:                         # Location of the pemfile to use for ssl
+mongodb_net_ssl_cafile:                          # Location of the cafile to use for ssl
+mongodb_ssl_pemkeyfile_content:                  # Set content for pemfile
+mongodb_ssl_cafile_content:                      # Set content for cafile
 
 ## processManagement Options
 # Fork server process
@@ -39,13 +42,7 @@ mongodb_processmanagement_fork: "{{ 'RedHat' == ansible_os_family }}"
 mongodb_security_authorization: "disabled"
 mongodb_security_keyfile: /etc/mongodb-keyfile   # Specify path to keyfile with password for inter-process authentication
 
-# Enable ssl. Required unique mongodb_ssl_pemkeyfile_content for every host.
-mongodb_ssl_enable: false
-mongodb_ssl_mode: preferSSL
-mongodb_ssl_pemkeyfile: /etc/mongodb_pemkeyfile.pem # Specify path to pemkeyfile with key+pem for ssl.
-mongodb_ssl_pemkeyfile_content:
-mongodb_ssl_cafile: /etc/mongodb_cafile.pem # Specify path to cafile with ca pem for ssl.
-mongodb_ssl_cafile_content:
+
 
 ## storage Options
 mongodb_storage_dbpath: /data/db                 # Directory for datafiles

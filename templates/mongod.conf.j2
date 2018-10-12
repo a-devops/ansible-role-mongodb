@@ -13,6 +13,9 @@ net:
   ssl:
     mode: {{ mongodb_net_ssl_mode }}
     PEMKeyFile: {{ mongodb_net_ssl_pemfile }}.pem
+    {% if mongodb_net_ssl_pemfile is defined -%}
+    CAFile: {{ mongodb_net_ssl_cafile }}
+    {% endif %}
   {% endif %}
 
 processManagement:
@@ -38,6 +41,7 @@ security:
 
 storage:
   dbPath: {{ mongodb_storage_dbpath }}
+  directoryPerDB: {{ mongodb_storage_dirperdb | to_nice_json }}
   {% if mongodb_major_version | version_compare("3.0", ">=") -%}
   engine: {{ mongodb_storage_engine }}
   {% endif -%}
