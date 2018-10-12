@@ -31,23 +31,25 @@
 
 - name: Create PEMKeyFile
   copy:
-    dest: "{{ mongodb_ssl_pemkeyfile }}"
+    dest: "{{ mongodb_net_ssl_pemfile }}"
     content: "{{ mongodb_ssl_pemkeyfile_content }}"
     owner: "{{ mongodb_user }}"
     group: "root"
     mode: 0600
   register: pemkeyfile_result
-  when: mongodb_ssl_enable
+  when: mongodb_net_ssl_pemfile is defined and mongodb_net_ssl_mode is defined and mongodb_net_ssl == 'enabled' and
+        mongodb_net_ssl_pemfile_content is defined and mongodb_net_ssl_pemfile_content != ''
 
 - name: Create CAFile
   copy:
-    dest: "{{ mongodb_ssl_cafile }}"
-    content: "{{ mongodb_ssl_cafile_content }}"
+    dest: "{{ mongodb_net_ssl_cafile }}"
+    content: "{{ mongodb_net_ssl_cafile_content }}"
     owner: "{{ mongodb_user }}"
     group: "root"
     mode: 0600
   register: cafile_result
-  when: mongodb_ssl_enable and mongodb_ssl_cafile_content is defined and mongodb_ssl_cafile_content != ''
+  when: mongodb_net_ssl_cafile is defined and mongodb_net_ssl_mode is defined and mongodb_net_ssl == 'enabled' and
+        mongodb_net_ssl_cafile_content is defined and mongodb_net_ssl_cafile_content != ''
 
 - name: set mongodb gid
   group: name=mongodb gid={{ mongodb_gid }} state=present
