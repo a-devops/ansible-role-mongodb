@@ -95,7 +95,7 @@
           or keyfile_result is changed
           or pemkeyfile_result is changed
           or cafile_result is changed
-          or mongodb_create_init_hugepages ischanged
+          or mongodb_create_init_hugepages is changed
           ) and mongodb_manage_service"
 
 - name: Ensure service is started
