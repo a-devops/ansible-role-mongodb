@@ -91,11 +91,11 @@
 
 - name: mongodb restart
   service: name={{ mongodb_daemon_name }} state=restarted
-  when: "(config_result|changed
-          or keyfile_result|changed
-          or pemkeyfile_result|changed
-          or cafile_result|changed
-          or mongodb_create_init_hugepages|changed
+  when: "(config_result is changed
+          or keyfile_result is changed
+          or pemkeyfile_result is changed
+          or cafile_result is changed
+          or mongodb_create_init_hugepages ischanged
           ) and mongodb_manage_service"
 
 - name: Ensure service is started
