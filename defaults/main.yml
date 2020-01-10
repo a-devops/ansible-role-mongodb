@@ -77,14 +77,14 @@ mongodb_mms_api_key: ""
 mongodb_mms_base_url: https://mms.mongodb.com
 
 # Log rotation
-mongodb_logrotate_options:
-  - rotate 7
-  - daily
-  - missingok
-  - create 0600 mongodb mongodb
-  - delaycompress
-  - compress
-  - sharedscripts
+mongodb_logrotate_options: []
+  # - rotate 7
+  # - daily
+  # - missingok
+  # - create 0644 mongodb mongodb
+  # - delaycompress
+  # - compress
+  # - sharedscripts
 
 # password for inter-process authentication
 # please regenerate this file on production environment with command 'openssl rand -base64 741'
