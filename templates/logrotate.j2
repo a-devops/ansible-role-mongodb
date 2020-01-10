@@ -1,0 +1,8 @@
+{{ mongodb_systemlog_path }} {
+{% for option in mongodb_logrotate_options %}
+  {{ option }}
+{% endfor %}
+postrotate
+        /bin/kill -SIGUSR1 $(cat /var/lib/mongodb/mongod.lock)
+endscript
+}
