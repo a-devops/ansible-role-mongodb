@@ -99,7 +99,7 @@
           ) and mongodb_manage_service"
 
 - name: Ensure service is started
-  service: name={{ mongodb_daemon_name }} state=started
+  service: name={{ mongodb_daemon_name }} state=started enabled=yes
 
 - name: Wait when mongodb is started
   wait_for:
