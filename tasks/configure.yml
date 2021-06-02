@@ -32,13 +32,13 @@
 - name: Create PEMKeyFile
   copy:
     dest: "{{ mongodb_net_ssl_pemfile }}"
-    content: "{{ mongodb_ssl_pemkeyfile_content }}"
+    content: "{{ mongodb_net_ssl_pemkeyfile_content }}"
     owner: "{{ mongodb_user }}"
     group: "root"
     mode: 0600
   register: pemkeyfile_result
   when: mongodb_net_ssl_pemfile is defined and mongodb_net_ssl_mode is defined and mongodb_net_ssl == 'enabled' and
-        mongodb_net_ssl_pemfile_content is defined and mongodb_net_ssl_pemfile_content != ''
+        mongodb_net_ssl_pemkeyfile_content is defined and mongodb_net_ssl_pemkeyfile_content != ''
 
 - name: Create CAFile
   copy:
